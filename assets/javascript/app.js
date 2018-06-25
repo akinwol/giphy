@@ -10,9 +10,14 @@ var addButtons = function (){
 
 
 
+
+
+
+
+
 $(document).ready(function(){ 
     addButtons();
-
+   
    
 
     $(document).on('click', '.submitButton', function(){
@@ -21,6 +26,25 @@ $(document).ready(function(){
         animals.push(newInput);
         addButtons();
      
+    });
+
+    // function to execute when one of the buttons is selected 
+    $(document).on('click', '.giphyButton', function(){
+        var selectedValue = $(this).attr("data-name");
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + selectedValue +"&api_key=ZXEZT6LCZ0bf7cVZYbgW0sCzr1SSNhH9"
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            var giphDiv = $('#giphyArea')
+            var giphUrl = response.data[0].images.original.url;
+            console.log(giphUrl);
+            var image = $("<img>").attr("src", giphUrl);
+            console.log(image)
+            giphDiv.html(image);
+            console.log(response.data[0].images)
+        })
+        console.log(queryURL);
     });
 
 

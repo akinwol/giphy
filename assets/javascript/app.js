@@ -36,13 +36,49 @@ $(document).ready(function(){
             url: queryURL,
             method: "GET"
         }).then(function(response){
+           var results = response.data;
+
+            // initialize the giphy area with a variable
             var giphDiv = $('#giphyArea')
-            var giphUrl = response.data[0].images.original.url;
-            console.log(giphUrl);
-            var image = $("<img>").attr("src", giphUrl);
-            console.log(image)
-            giphDiv.html(image);
-            console.log(response.data[0].images)
+            giphDiv.empty();
+
+            $.each(results, function(index){
+                var gifContainer = $("<div class='col-4 gif-container'>");
+
+                // console.log("this: " + JSON.stringify(this.images.downsized.url));
+                // var test = JSON.stringify(this.images.downsized.url);
+               
+                var animateUrl = results[index].images.fixed_height.url;
+                var ratings = results[index].rating;
+                var stillUrl = results[index].images.fixed_height_still.url;
+
+               
+            
+                var image = $("<img>").attr("src", stillUrl).addClass("gif-image");
+                image.attr("data-still", stillUrl);
+                image.attr("data-animate", animateUrl);
+                image.attr("data-state", "still")
+                var ratingDisplay = $("<p class='ratings'>").text("Ratings: " + ratings);
+               gifContainer.append(image);
+               gifContainer.append(ratingDisplay);
+                giphDiv.append(gifContainer);
+            })
+
+            $(document).on('click', ".gif-image", function(){
+                var state = $(this).attr("data-state");
+                
+                if (state === "still"){
+                    $(this).attr("src", $(this).attr("data-animate"));
+                    $(this).attr("data-state", "animate");
+                }
+                else {
+                    $(this).attr("src", $(this).attr("data-still"));
+                    $(this).attr("data-state", "still");
+                }
+            
+            });
+           
+            console.log(response)
         })
         console.log(queryURL);
     });
@@ -59,3 +95,11 @@ $(document).ready(function(){
 
 
 });
+
+// var giphDiv = $('#giphyArea')
+//             var giphUrl = response.data[0].images.original.url;
+            
+//             var image = $("<img>").attr("src", giphUrl);
+           
+//             giphDiv.html(image);
+//             console.log(response)

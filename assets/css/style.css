@@ -4,14 +4,32 @@
 
 .gif-container {
     max-height: 200px;
+    position: relative;
     /* margin: 10px; */
+   
 }
 
 .gif-image {
     max-width: 100%;
     min-width: 100%;
-    min-height: 50%;
-    max-height: 80%;
+    min-height: 70%;
+    max-height: 80%; 
+  
 
 }
 
+#more-button-area {
+    margin: 20px;
+}
+
+.ratings {
+    border: 2px solid;
+    /* position: relative; */
+    text-align: center;
+}
+
+.fav{
+    position: absolute;
+    top: 0%;
+    left: 5%;
+}

@@ -76,7 +76,7 @@ $(document).ready(function () {
 
                     gifContainer.append(image);
                     gifContainer.append(favButton);
-                    // gifContainer.append(ratingDisplay);
+                    gifContainer.append(ratingDisplay);
                     giphDiv.prepend(gifContainer);
                 });
 
